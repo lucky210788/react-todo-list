@@ -1,7 +1,7 @@
 import  React from 'react';
 import './loader.css';
 
-const  Loader = props => (
+const  Loader = () => (
     <div className="lds-ripple">
         <div />
         <div />

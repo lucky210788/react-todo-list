@@ -16,8 +16,8 @@ function validatePhone(phone) {
 }
 
 class SingUp extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             newUser: {},
             isFormValid: false,

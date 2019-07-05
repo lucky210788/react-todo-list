@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import './item-add-form.css'
 
 export default class ItemAddForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             title: '',
             description: ''

@@ -11,8 +11,8 @@ import Loader from '../UI/loader/Loader';
 import './main-Page.css'
 
 export default class MainPage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             todoData: [],
             term: '',
@@ -129,7 +129,7 @@ export default class MainPage extends Component {
 
         return (
             <div className="todo-app">
-                <AppHeader toDo={todoCount} done={doneCount}/>
+                <AppHeader toDo={todoCount} done={doneCount} onLogOut={this.props.onLogOut}/>
                 <div className="top-panel d-flex">
                     <SearchPanel onHandleSearch={this.onHandleSearch}/>
                     <ItemStatusFilter onHandleFilter={this.onHandleFilter} activeFiter={this.state.filter}/>

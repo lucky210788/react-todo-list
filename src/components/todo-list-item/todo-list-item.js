@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import './todo-list-item.css';
 
 export default class TodoListItem extends Component {
-
     render() {
         const {title, onDeleted, onToggleImportant, onToggleDone, status, selected, description} = this.props;
 

@@ -4,19 +4,18 @@ import {Link} from 'react-router-dom';
 import Button from '../UI/button/Button'
 import Input from '../UI/input/Input'
 import AuthService from '../../services/authService'
-// import axios from "../../axios/axios-set";
-// import Cookies from 'universal-cookie';
+import Cookies from 'universal-cookie';
 
 function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
 
-// const cookies = new Cookies();
+const cookies = new Cookies();
 
 class Login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isFormValid: false,
             formControls: {
@@ -60,8 +59,11 @@ class Login extends Component {
         };
 
         this.authService.login(user)
-            .then(() => {
-                // this.props.onLogIn()
+            .then((response) => {
+                if (response) {
+                    cookies.set('token', response.data, {path: '/'});
+                    this.props.onLogIn()
+                }
             })
             .catch((e) => {
                 console.log('Error', e);

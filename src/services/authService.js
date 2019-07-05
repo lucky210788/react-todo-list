@@ -1,8 +1,5 @@
 import {Component} from "react";
 import axios from './axios-set';
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
 
 export default class AuthService extends Component {
 
@@ -19,7 +16,7 @@ export default class AuthService extends Component {
         try {
             const response = await axios.post('api/login', user);
             if (response) {
-                cookies.set('token', response.data, {path: '/'});
+                return response;
             }
         }
         catch (e) {

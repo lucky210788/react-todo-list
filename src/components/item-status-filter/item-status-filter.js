@@ -3,8 +3,8 @@ import React, {Component} from 'react'
 import './item-status-filter.css'
 
 export default class ItemStatusFilter extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             btnNames: ["All", "Active", "Done"]
         }
