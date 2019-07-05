@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './singUp.css';
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Button from '../UI/button/Button'
 import Input from '../UI/input/Input'
-// import axios from "../../axios/axios-set";
+import AuthService from '../../services/authService'
 
 function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
@@ -16,70 +16,75 @@ function validatePhone(phone) {
 }
 
 class SingUp extends Component {
-    state = {
-        newUser: {},
-        isFormValid: false,
-        formControls: {
-            name: {
-                value: '',
-                type: 'text',
-                placeholder: 'Name',
-                errorMessage: 'Required field',
-                valid: false,
-                touched: false,
-                validation: {
-                    required: true
-                }
-            },
-            surname: {
-                value: '',
-                type: 'text',
-                placeholder: 'Surname',
-                errorMessage: 'Required field',
-                valid: false,
-                touched: false,
-                validation: {
-                    required: true
-                }
-            },
-            phone: {
-                value: '',
-                type: 'text',
-                placeholder: 'Phone',
-                errorMessage: 'Only numbers',
-                valid: false,
-                touched: false,
-                validation: {
-                    required: true,
-                    number: true
-                }
-            },
-            email: {
-                value: '',
-                type: 'email',
-                placeholder: 'Email address',
-                errorMessage: 'Enter a valid email',
-                valid: false,
-                touched: false,
-                validation: {
-                    required: true,
-                    email: true
-                }
-            },
-            password: {
-                value: '',
-                type: 'password',
-                placeholder: 'Password',
-                errorMessage: 'Minimum length 9 characters',
-                valid: false,
-                touched: false,
-                validation: {
-                    required: true,
-                    minLength: 9
+    constructor() {
+        super();
+        this.state = {
+            newUser: {},
+            isFormValid: false,
+            formControls: {
+                name: {
+                    value: '',
+                    type: 'text',
+                    placeholder: 'Name',
+                    errorMessage: 'Required field',
+                    valid: false,
+                    touched: false,
+                    validation: {
+                        required: true
+                    }
+                },
+                surname: {
+                    value: '',
+                    type: 'text',
+                    placeholder: 'Surname',
+                    errorMessage: 'Required field',
+                    valid: false,
+                    touched: false,
+                    validation: {
+                        required: true
+                    }
+                },
+                phone: {
+                    value: '',
+                    type: 'text',
+                    placeholder: 'Phone',
+                    errorMessage: 'Only numbers',
+                    valid: false,
+                    touched: false,
+                    validation: {
+                        required: true,
+                        number: true
+                    }
+                },
+                email: {
+                    value: '',
+                    type: 'email',
+                    placeholder: 'Email address',
+                    errorMessage: 'Enter a valid email',
+                    valid: false,
+                    touched: false,
+                    validation: {
+                        required: true,
+                        email: true
+                    }
+                },
+                password: {
+                    value: '',
+                    type: 'password',
+                    placeholder: 'Password',
+                    errorMessage: 'Minimum length 9 characters',
+                    valid: false,
+                    touched: false,
+                    validation: {
+                        required: true,
+                        minLength: 9
+                    }
                 }
             }
-        }
-    };
+        };
+    }
+
+    authService = new AuthService();
 
     submitHeandler = (event) => {
         event.preventDefault();
@@ -94,21 +99,30 @@ class SingUp extends Component {
             password: this.state.formControls.password.value,
         };
 
-        // this.setState({newUser}, async () => {
-        //     try {
-        //         await axios.post('api/registration', this.state.newUser);
-        //         this.state.formControls.name.value = '';
-        //         this.state.formControls.surname.value = '';
-        //         this.state.formControls.phone.value = '';
-        //         this.state.formControls.email.value = '';
-        //         this.state.formControls.password.value = '';
-        //         this.setState({
-        //             newUser: {}
-        //         });
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // });
+        this.authService.registration(newUser)
+            .then(() => {
+                    this.setState({
+                        newUser: {},
+                        formControls: {
+                            name: {
+                                value: ''
+                            },
+                            surname: {
+                                value: ''
+                            },
+                            phone: {
+                                value: ''
+                            },
+                            email: {
+                                value: ''
+                            },
+                            password: {
+                                value: ''
+                            }
+                        }
+                    })
+                }
+            );
     };
 
     validateControl(value, validation) {
@@ -187,7 +201,7 @@ class SingUp extends Component {
                         onClick={this.addUserHandler}
                         type="button"
                     >sing up</Button>
-                    {/*<p className="some-text">Already have an account! <Link to="/login">Login</Link></p>*/}
+                    <p className="some-text">Already have an account! <Link to="/login">Login</Link></p>
                 </form>
             </div>
         );

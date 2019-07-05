@@ -24,16 +24,6 @@ export default class MainPage extends Component {
 
     requestService = new RequestService();
 
-    loadTasks = () => {
-        this.requestService.getTasks()
-            .then(res => {
-                this.setState({
-                    todoData: res
-                })
-            })
-            .catch(error => console.error('Error', error));
-    };
-
     deleteItem = (id) => {
         this.requestService.deleteTasks(id);
         let newData = this.state.todoData;
