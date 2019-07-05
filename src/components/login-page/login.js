@@ -3,6 +3,7 @@ import './login.css';
 import {Link} from 'react-router-dom';
 import Button from '../UI/button/Button'
 import Input from '../UI/input/Input'
+import AuthService from '../../services/authService'
 // import axios from "../../axios/axios-set";
 // import Cookies from 'universal-cookie';
 
@@ -14,53 +15,58 @@ function validateEmail(email) {
 // const cookies = new Cookies();
 
 class Login extends Component {
-    state = {
-        isFormValid: false,
-        formControls: {
-            email: {
-                value: '',
-                type: 'email',
-                placeholder: 'Email address',
-                errorMessage: 'Enter a valid email',
-                valid: false,
-                touched: false,
-                validation: {
-                    required: true,
-                    email: true
-                }
-            },
-            password: {
-                value: '',
-                type: 'password',
-                placeholder: 'Password',
-                errorMessage: 'Minimum length 9 characters',
-                valid: false,
-                touched: false,
-                validation: {
-                    required: true,
-                    minLength: 9
+    constructor() {
+        super();
+        this.state = {
+            isFormValid: false,
+            formControls: {
+                email: {
+                    value: '',
+                    type: 'email',
+                    placeholder: 'Email address',
+                    errorMessage: 'Enter a valid email',
+                    valid: false,
+                    touched: false,
+                    validation: {
+                        required: true,
+                        email: true
+                    }
+                },
+                password: {
+                    value: '',
+                    type: 'password',
+                    placeholder: 'Password',
+                    errorMessage: 'Minimum length 9 characters',
+                    valid: false,
+                    touched: false,
+                    validation: {
+                        required: true,
+                        minLength: 9
+                    }
                 }
             }
-        }
-    };
+        };
+    }
+
+    authService = new AuthService();
+
     submitHeandler = (event) => {
         event.preventDefault();
     };
-    // loginHandler = async () => {
-    //     const user = {
-    //         email: this.state.formControls.email.value,
-    //         password: this.state.formControls.password.value,
-    //     };
-    //     try {
-    //         const response = await axios.post('api/login-page', user);
-    //         if (response) {
-    //             cookies.set('token', response.data, {path: '/'});
-    //         }
-    //         this.props.onLogIn();
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
+    loginHandler = () => {
+        const user = {
+            email: this.state.formControls.email.value,
+            password: this.state.formControls.password.value,
+        };
+
+        this.authService.login(user)
+            .then(() => {
+                // this.props.onLogIn()
+            })
+            .catch((e) => {
+                console.log('Error', e);
+            })
+    };
 
     validateControl(value, validation) {
         if (!validation) {
@@ -132,7 +138,7 @@ class Login extends Component {
                     <Button
                         disabled={!this.state.isFormValid}
                         className={'btn-main'}
-                        // onClick={this.loginHandler}
+                        onClick={this.loginHandler}
                     >login</Button>
                     <p className="some-text">Don't have any account? <Link to="/singup">Sing up</Link></p>
                 </form>
