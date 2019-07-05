@@ -1,0 +1,14 @@
+.item-add-form {
+    margin: 0 0 1rem;
+}
+
+.item-add-form input {
+    margin-right: 3px;
+    width: 75%;
+}
+
+.item-add-form textarea {
+    margin-right: 3px;
+    resize: none;
+    height: 90px;
+}

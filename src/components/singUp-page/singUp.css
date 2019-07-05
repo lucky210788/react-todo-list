@@ -1,0 +1,12 @@
+.page-wrap {
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    padding: 20px;
+}
+
+.form-img {
+    width: 90px;
+    height: auto;
+    margin-bottom: 25px;
+}

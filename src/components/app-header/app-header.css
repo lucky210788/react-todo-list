@@ -1,0 +1,25 @@
+.app-header {
+    align-items: flex-end;
+    position: relative;
+}
+
+.app-header h1 {
+    flex-grow: 1;
+}
+
+.app-header h2 {
+    font-size: 1.2rem;
+    color: gray;
+}
+
+.btn-logout{
+    border: none;
+    width: 30px;
+    height: 30px;
+    background: url("../../img/logout.svg") no-repeat;
+    background-size: cover;
+    padding: 0;
+    top: -20px;
+    right: 15px;
+    position: absolute;
+}

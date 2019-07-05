@@ -1,0 +1,22 @@
+.page-wrap{
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    padding: 20px;
+}
+
+.form-control{
+    background-color: #f0f4f7;
+    border: none;
+}
+
+.form-img{
+    width: 90px;
+    height: auto;
+    margin-bottom: 25px;
+}
+
+.some-text{
+    font-size: 0.7rem;
+    margin-top: 15px;
+}
