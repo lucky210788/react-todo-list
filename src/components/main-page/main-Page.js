@@ -7,8 +7,15 @@ import ItemStatusFilter from '../item-status-filter/item-status-filter';
 import ItemAddForm from '../item-add-form/item-add-form';
 import RequestService from '../../services/requestService';
 import Loader from '../UI/loader/Loader';
+import Cookies from 'universal-cookie';
 
 import './main-Page.css'
+
+const cookies = new Cookies();
+
+const getToken = () => {
+    return cookies.get('token').token;
+};
 
 export default class MainPage extends Component {
     constructor(props) {
@@ -25,7 +32,7 @@ export default class MainPage extends Component {
     requestService = new RequestService();
 
     deleteItem = (id) => {
-        this.requestService.deleteTasks(id);
+        this.requestService.deleteTasks(id, getToken());
         let newData = this.state.todoData;
         newData = newData.filter((todo) => (todo._id !== id));
         this.setState({todoData: newData});
@@ -38,7 +45,7 @@ export default class MainPage extends Component {
             selected: false
         };
 
-        this.requestService.postTasks(newItem)
+        this.requestService.postTasks(newItem, getToken())
             .then(res => {
                 this.setState({
                     todoData: res
@@ -57,7 +64,7 @@ export default class MainPage extends Component {
             }
         }
 
-        this.requestService.changeTask(id, {propName: propName, status: propVal}).catch(error => console.error('Error', error));
+        this.requestService.changeTask(id, {propName: propName, status: propVal}, getToken()).catch(error => console.error('Error', error));
         propVal =null;
         this.setState(({todoData}) => {
             return {
@@ -105,7 +112,7 @@ export default class MainPage extends Component {
     };
 
     componentDidMount() {
-        this.requestService.getTasks()
+        this.requestService.getTasks(getToken())
             .then(res => {
                 this.setState({
                     todoData: res,
